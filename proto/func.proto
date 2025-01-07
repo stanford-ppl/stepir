@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package stepir;
+
+
+message Func {
+    string name = 1;
+    uint64 id = 2;
+    reserved 3 to 10;
+    oneof func {
+        Range range = 11;
+        Streamify streamify = 12;
+        Permute permute = 13;
+    }
+}
+

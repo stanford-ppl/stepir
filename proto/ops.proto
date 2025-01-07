@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package stepir;
+
+// import "func.proto"
+
+message Operation {
+  string name = 1;
+  uint64 id = 2;
+  reserved 3 to 10;
+  oneof op {
+    // Generator root = 11;
+    Map map = 12;
+    // Flatmap flatmap = 13;
+    // Accum accum = 14;
+    // Scan scan = 17;
+    Zip zip = 15;
+    // Unzip unzip = 16;
+    // Broadcast broadcast = 26;
+    // Enumerate enumerate = 18;
+    // RepeatRef repeat_ref = 19;
+    // RepeatN repeat_n = 20;
+    // Bufferize bufferize = 21;
+    // Promote promote = 22;
+    // Reshape reshape = 23;
+    // Flatten flatten = 24;
+    // FlatPartition flat_partition = 25;
+    // FlatReassemble flat_reassemble = 26;    
+    // FnBlock fn_block = 27;
+    // // reserved 28 to 35?
+    // RepeatStatic repeat_static = 28;
+  }
+}
+
+message Stream { // corresponds to StreamNode
+    uint64 id = 1;
+    optional uint64 idx = 2;
+}
+
+message Zip {
+    string label = 1;
+    uint64 id = 2;
+    Stream in_1 = 3;
+    Stream in_2 = 4;
+}
+
+/*
+message FlatReassemble {
+    string label = 1;
+    uint64 id = 2;
+    repeated uint64 streams = 3;
+}
+*/
+
+message Map {
+    string label = 1;
+    uint64 id = 2;
+}
