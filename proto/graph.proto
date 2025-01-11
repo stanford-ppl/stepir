@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package stepir;
 
-import "ops.proto"
+import "ops.proto";
 
 message ProgramGraph {
   // optional string name = 1;
