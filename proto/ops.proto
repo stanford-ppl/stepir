@@ -3,6 +3,7 @@ syntax = "proto3";
 package stepir;
 
 // import "func.proto"
+import "datatype.proto";
 
 message Operation {
   string name = 1;
@@ -33,15 +34,16 @@ message Operation {
 }
 
 message Stream { // corresponds to StreamNode
-    uint64 id = 1;
-    optional uint64 idx = 2;
+  uint64 id = 1;
+  optional uint64 idx = 2;
+  Scalar dtype = 3;
 }
 
 message Zip {
-    string label = 1;
-    uint64 id = 2;
-    Stream in_1 = 3;
-    Stream in_2 = 4;
+  string label = 1;
+  uint64 id = 2;
+  Stream in_1 = 3;
+  Stream in_2 = 4;
 }
 
 /*
@@ -53,6 +55,6 @@ message FlatReassemble {
 */
 
 message Map {
-    string label = 1;
-    uint64 id = 2;
+  string label = 1;
+  uint64 id = 2;
 }

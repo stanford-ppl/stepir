@@ -9,7 +9,7 @@ message ProgramGraph {
   string name = 1;
   repeated Operation operators = 2;
 
-  // Reserved for additional metadata. Blame Rubens if you need more than 8 fields
+  // Reserved for additional metadata.
   reserved 3 to 10;
 
   //repeated RefStream ref_streams = 11;

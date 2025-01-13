@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package stepir;
+
+
+message I16 {
+}
+message I32 {
+}
+
+message F16 {
+}
+message F32 {
+}
+
+message Scalar {
+  oneof type {
+    I16 i16 = 1;
+    I32 i32 = 2;
+    F16 f16 = 3;
+    F32 f32 = 4;
+  }
+}
+
+message Tile {
+  Scalar dtype = 1;
+}
