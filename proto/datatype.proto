@@ -3,14 +3,14 @@ syntax = "proto3";
 package stepir;
 
 message Sim {
-  oneof simtype {
+  oneof sim_type {
     Ref ref = 1;
     Value val = 2;
   }
 }
 
 message Ref {
-  oneof reftype {
+  oneof ref_type {
     View view = 1;
     ViewTuple viewtuple = 2;
   }
@@ -23,7 +23,7 @@ message ViewTuple {
 
 
 message Value {
-  oneof valtype {
+  oneof val_type {
     Tile tile = 1;
     Element element = 2;
     ValueTuple tuple = 3;
