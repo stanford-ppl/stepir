@@ -2,6 +2,52 @@ syntax = "proto3";
 
 package stepir;
 
+message Sim {
+  oneof type {
+    Ref ref = 1;
+    Value val = 2;
+  }
+}
+
+message Ref {
+  oneof type {
+    View view = 1;
+    ViewTuple viewtuple = 2;
+  }
+}
+
+message View {
+}
+message ViewTuple {
+}
+
+
+message Value {
+  oneof type {
+    Tile tile = 1;
+    Element element = 2;
+    ValueTuple tuple = 3;
+  }
+}
+
+message ValueTuple{
+  Value lhs = 1;
+  Value rhs = 2;
+}
+
+message Tile {
+  Element dtype = 1;
+}
+
+message Element {
+  oneof scalar {
+    I16 i16 = 1;
+    I32 i32 = 2;
+    F16 f16 = 3;
+    F32 f32 = 4;
+  }
+}
+
 
 message I16 {
 }
@@ -13,15 +59,8 @@ message F16 {
 message F32 {
 }
 
-message Scalar {
-  oneof type {
-    I16 i16 = 1;
-    I32 i32 = 2;
-    F16 f16 = 3;
-    F32 f32 = 4;
-  }
-}
 
-message Tile {
-  Scalar dtype = 1;
-}
+
+
+
+

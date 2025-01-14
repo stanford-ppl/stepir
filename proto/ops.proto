@@ -10,7 +10,7 @@ message Operation {
   uint64 id = 2;
   reserved 3 to 10;
   oneof op {
-    // Generator root = 11;
+    Input input = 11;
     Map map = 12;
     // Flatmap flatmap = 13;
     // Accum accum = 14;
@@ -30,20 +30,26 @@ message Operation {
     // FnBlock fn_block = 27;
     // // reserved 28 to 35?
     // RepeatStatic repeat_static = 28;
+    Output output = 30;
   }
 }
 
 message Stream { // corresponds to StreamNode
   uint64 id = 1;
   optional uint64 idx = 2;
-  Scalar dtype = 3;
+  Sim dtype = 3;
+}
+
+message Input {
+}
+
+message Output {
+  Stream input = 3;
 }
 
 message Zip {
-  string label = 1;
-  uint64 id = 2;
-  Stream in_1 = 3;
-  Stream in_2 = 4;
+  Stream input_1 = 3;
+  Stream input_2 = 4;
 }
 
 /*
