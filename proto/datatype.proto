@@ -21,25 +21,32 @@ message View {
 message ViewTuple {
 }
 
-
-message Value {
-  oneof val_type {
+message Scalar {
+  oneof scalar_tp{
     Tile tile = 1;
     Element element = 2;
   }
 }
 
-message ValueTuple2{
-  Value lhs = 1;
-  Value rhs = 2;
+message ScalarTuple2{
+  Scalar lhs = 1;
+  Scalar rhs = 2;
 }
+
+message Value {
+  oneof val_type {
+    Scalar scalar = 1;
+    ScalarTuple2 scalar_tuple2 = 2;
+  }
+}
+
 
 message Tile {
   Element dtype = 1;
 }
 
 message Element {
-  oneof scalar {
+  oneof element_tp {
     I16 i16 = 1;
     I32 i32 = 2;
     F16 f16 = 3;
