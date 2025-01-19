@@ -26,11 +26,10 @@ message Value {
   oneof val_type {
     Tile tile = 1;
     Element element = 2;
-    ValueTuple tuple = 3;
   }
 }
 
-message ValueTuple{
+message ValueTuple2{
   Value lhs = 1;
   Value rhs = 2;
 }
