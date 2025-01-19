@@ -37,44 +37,38 @@ message Operation {
 
 
 message ChannelInfo {
-  message BaseAChannel {
-    uint64 in_id = 2;
-    uint64 curr_id = 3;
+    message BaseAChannel {
+    Stream in_id = 1;
   }
   message InputChannel {
-    uint64 curr_id = 2;
   }
   message OutputChannel {
-    uint64 in_id = 2;
+    Stream in_id = 1;
   }
   message BroadcastChannel {
-    uint64 in_id = 3;
-    repeated uint64 curr_ids = 4;
+    Stream in_id = 1;
+    repeated uint64 idx = 2;
   }
 
   message BaseBChannel {
-    uint64 in_id = 1;
-    uint64 curr_id = 2;
+    Stream in_id = 1;
   }
   message PartitionChannel {
-    uint64 a_in_id = 1;
-    uint64 b_in_id = 2;
-    repeated uint64 curr_ids = 3;
+    Stream a_in_id = 1;
+    Stream b_in_id = 2;
+    repeated uint64 idx = 3;
   }
   message ReassembleChannel {
-    repeated uint64 a_in_ids = 1;
-    uint64 b_in_id = 2;
-    uint64 curr_id = 3;
+    repeated Stream a_in_ids = 1;
+    Stream b_in_id = 2;
   }
   message ZipChannel {
-    uint64 a_in_id = 1;
-    uint64 b_in_id = 2;
-    uint64 curr_id = 3;
+    Stream a_in_id = 1;
+    Stream b_in_id = 2;
   }
   message UnzipChannel {
-    uint64 in_id = 1;
-    uint64 a_curr_id = 2;
-    uint64 b_curr_id = 3;
+    Stream in_id = 1;
+    repeated uint64 idx = 2;
   }
   message ChannelB {
     Sim b = 1;
