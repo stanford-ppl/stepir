@@ -2,15 +2,39 @@ syntax = "proto3";
 
 package stepir;
 
+import "datatype.proto";
 
-message Func {
-  string name = 1;
-  uint64 id = 2;
-  reserved 3 to 10;
-  oneof func {
-    Range range = 11;
-    Streamify streamify = 12;
-    Permute permute = 13;
+message ElemtoElemFunc {
+  oneof func_type {
+    Exp exp = 1;
   }
+}
+
+message Exp {
+}
+
+
+message ElemtoStreamFunc {
+  oneof func_type {
+    Range range = 1;
+    Streamify streamify = 2;
+  }
+}
+
+message Range {
+  Element index = 1;
+}
+
+message Streamify {
+}
+
+
+message ViewFunc {
+  oneof func_type {
+    Permute permute = 1;
+  }
+}
+
+message Permute {
 }
 

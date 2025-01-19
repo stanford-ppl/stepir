@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package stepir;
 
-// import "func.proto"
 import "datatype.proto";
+import "func.proto";
 
 message Operation {
   string name = 1;
@@ -37,7 +37,7 @@ message Operation {
 
 
 message ChannelInfo {
-    message BaseAChannel {
+  message BaseAChannel {
     Stream in_id = 1;
   }
   message InputChannel {
@@ -47,7 +47,7 @@ message ChannelInfo {
   }
   message BroadcastChannel {
     Stream in_id = 1;
-    repeated uint64 idx = 2;
+    repeated uint64 idxes = 2;
   }
 
   message BaseBChannel {
@@ -56,7 +56,7 @@ message ChannelInfo {
   message PartitionChannel {
     Stream a_in_id = 1;
     Stream b_in_id = 2;
-    repeated uint64 idx = 3;
+    repeated uint64 idxes = 3;
   }
   message ReassembleChannel {
     repeated Stream a_in_ids = 1;
@@ -68,7 +68,7 @@ message ChannelInfo {
   }
   message UnzipChannel {
     Stream in_id = 1;
-    repeated uint64 idx = 2;
+    repeated uint64 idxes = 2;
   }
   message ChannelB {
     Sim b = 1;
@@ -113,6 +113,5 @@ message FlatReassemble {
 */
 
 message Map {
-  string label = 1;
-  uint64 id = 2;
+  ElemtoElemFunc func = 1;
 }
