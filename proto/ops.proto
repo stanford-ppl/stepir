@@ -8,110 +8,84 @@ import "func.proto";
 message Operation {
   string name = 1;
   uint64 id = 2;
-  ChannelInfo channel_info = 3;
-  reserved 4 to 10;
+  reserved 3 to 10;
+  Sim a = 11;
+  optional Sim b = 12;
+  reserved 13 to 20;
   oneof op {
-    Input input = 11;
-    Map map = 12;
-    // Flatmap flatmap = 13;
-    // Accum accum = 14;
-    // Scan scan = 17;
-    Zip zip = 15;
-    // Unzip unzip = 16;
-    // Broadcast broadcast = 26;
-    // Enumerate enumerate = 18;
-    // RepeatRef repeat_ref = 19;
-    // RepeatN repeat_n = 20;
-    // Bufferize bufferize = 21;
-    // Promote promote = 22;
-    // Reshape reshape = 23;
-    // Flatten flatten = 24;
-    // FlatPartition flat_partition = 25;
-    // FlatReassemble flat_reassemble = 26;    
-    // FnBlock fn_block = 27;
-    // // reserved 28 to 35?
-    // RepeatStatic repeat_static = 28;
-    Output output = 30;
+    Input input = 21;
+    // reserved 22 to 24;
+    Map map = 25;
+    // Flatmap flatmap = ;
+    // Accum accum = ;
+    // Scan scan = ;
+    // FnBlock fn_block = ;
+
+    Zip zip = 31;
+    Unzip unzip = 32;
+    Broadcast broadcast = 33;
+    // RepeatRef repeat_ref = ;
+    // RepeatN repeat_n = ;
+    // RepeatStatic repeat_static = ;
+    // Bufferize bufferize = ;
+    // Promote promote = ;
+    // Reshape reshape = ;
+    // Flatten flatten = ;
+    // Enumerate enumerate = ;
+    Partition flat_partition = 45;
+    Reassemble flat_reassemble = 46;    
+    // reserved 47 to 50?
+    Output output = 51;
   }
 }
 
-
-message ChannelInfo {
-  message BaseAChannel {
-    Stream in_id = 1;
-  }
-  message InputChannel {
-  }
-  message OutputChannel {
-    Stream in_id = 1;
-  }
-  message BroadcastChannel {
-    Stream in_id = 1;
-    repeated uint64 idxes = 2;
-  }
-
-  message BaseBChannel {
-    Stream in_id = 1;
-  }
-  message PartitionChannel {
-    Stream a_in_id = 1;
-    Stream b_in_id = 2;
-    repeated uint64 idxes = 3;
-  }
-  message ReassembleChannel {
-    repeated Stream a_in_ids = 1;
-    Stream b_in_id = 2;
-  }
-  message ZipChannel {
-    Stream a_in_id = 1;
-    Stream b_in_id = 2;
-  }
-  message UnzipChannel {
-    Stream in_id = 1;
-    repeated uint64 idxes = 2;
-  }
-  message ChannelB {
-    Sim b = 1;
-    oneof chan_type_b {
-      BaseBChannel base_b = 2;
-      PartitionChannel partition = 3;
-      ReassembleChannel reassemble = 4;
-      ZipChannel zip = 5;
-      UnzipChannel unzip = 6;
-    }
-  }
-  Sim a = 1;
-  oneof chan_type_a {
-    BaseAChannel base_a = 2;
-    InputChannel input = 3;
-    OutputChannel output = 4;
-    BroadcastChannel broadcast = 5;
-    ChannelB channel_b = 6;
-  }
-}
-
-message Stream { // corresponds to StreamNode
-  uint64 id = 1;
-  optional uint64 idx = 2;
+message Output {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
 }
 
 message Input {
 }
 
-message Output {
+message Map {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  ElemtoElemFunc func = 3;
+}
+
+message Broadcast {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  repeated uint64 out_stream_idxes = 3;
+}
+
+message Partition {
+  uint64 node_id_data = 1;
+  optional uint64 stream_idx_data = 2;
+  uint64 node_id_control = 3;
+  optional uint64 stream_idx_control = 4;
+  repeated uint64 out_stream_idxes = 5;
+}
+  
+message Reassemble {
+  message Stream {
+    uint64 node_id = 1;
+    optional uint64 stream_idx = 2;
+  }
+  Stream node_id_data = 1;
+  uint64 node_id_control = 2;
+  optional uint64 stream_idx_control = 3;
 }
 
 message Zip {
+  uint64 node_id_a = 1;
+  optional uint64 stream_idx_a = 2;
+  uint64 node_id_b = 3;
+  optional uint64 stream_idx_b = 4;
 }
 
-/*
-message FlatReassemble {
-    string label = 1;
-    uint64 id = 2;
-    repeated uint64 streams = 3;
-}
-*/
-
-message Map {
-  ElemtoElemFunc func = 1;
+message Unzip {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  repeated uint64 idxes = 3;
 }

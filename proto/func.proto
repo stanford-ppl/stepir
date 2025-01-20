@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package stepir;
 
-import "datatype.proto";
-
 message ElemtoElemFunc {
   oneof func_type {
     Exp exp = 1;
@@ -22,7 +20,7 @@ message ElemtoStreamFunc {
 }
 
 message Range {
-  Element index = 1;
+  uint64 index = 1;
 }
 
 message Streamify {
