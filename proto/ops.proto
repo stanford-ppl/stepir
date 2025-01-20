@@ -19,7 +19,7 @@ message Operation {
 }
 
 message TypeA {
-  oneof op {
+  oneof op_a {
     Input input = 1;
     Output output = 2;
     Broadcast broadcast = 3;
@@ -33,7 +33,7 @@ message TypeA {
 }
 
 message TypeAB {
-  oneof op {
+  oneof op_ab {
     Map map = 1;
     // Flatmap flatmap = ;
     // Accum accum = ;
