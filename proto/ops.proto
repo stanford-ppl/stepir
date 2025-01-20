@@ -12,30 +12,41 @@ message Operation {
   Sim a = 11;
   optional Sim b = 12;
   reserved 13 to 20;
-  oneof op {
-    Input input = 21;
-    // reserved 22 to 24;
-    Map map = 25;
-    // Flatmap flatmap = ;
-    // Accum accum = ;
-    // Scan scan = ;
-    // FnBlock fn_block = ;
+  oneof op_type {
+    TypeA type_a = 21;
+    TypeAB type_a_b = 22;
+  }
+}
 
-    Zip zip = 31;
-    Unzip unzip = 32;
-    Broadcast broadcast = 33;
-    // RepeatRef repeat_ref = ;
-    // RepeatN repeat_n = ;
+message TypeA {
+  oneof op {
+    Input input = 1;
+    Output output = 2;
+    Broadcast broadcast = 3;
     // RepeatStatic repeat_static = ;
     // Bufferize bufferize = ;
     // Promote promote = ;
     // Reshape reshape = ;
     // Flatten flatten = ;
     // Enumerate enumerate = ;
-    Partition flat_partition = 45;
-    Reassemble flat_reassemble = 46;    
-    // reserved 47 to 50?
-    Output output = 51;
+  }
+}
+
+message TypeAB {
+  oneof op {
+    Map map = 1;
+    // Flatmap flatmap = ;
+    // Accum accum = ;
+    // Scan scan = ;
+    // FnBlock fn_block = ;
+
+    Zip zip = 10;
+    Unzip unzip = 11;
+    // RepeatRef repeat_ref = ;
+    // RepeatN repeat_n = ;
+    Partition flat_partition = 15;
+    Reassemble flat_reassemble = 16;    
+
   }
 }
 
