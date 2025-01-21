@@ -1,181 +1,183 @@
 syntax = "proto3";
 
-// This project is organized as a single monolithic protobuffer because many people
-// have had problems with tooling / compilation of multiple protobuffers with dependencies.
+// This project is organized as a single monolithic protobuffer
+// because many people have had problems with tooling / compilation
+// of multiple protobuffers with dependencies.
 
 // Defines the program location in the original source program
 message Location {
-    string filename = 1;
-    uint64 start = 2;
-    uint64 end = 3;
+  string filename = 1;
+  uint64 start = 2;
+  uint64 end = 3;
 }
 
 // Stream valued symbols
 message Stream {
-    uint64 id = 1;
-    optional string name = 2;
-    optional Location loc = 3;
-    Type element_type = 4;
+  uint64 id = 1;
+  optional string name = 2;
+  optional Location loc = 3;
+  Type element_type = 4;
 }
 
 
 // Type definitions
 
 enum PrimitiveType {
-    // Unit type, also a placeholder
-    UNIT = 0;
+  // Unit type, also a placeholder
+  PRIMITIVE_TYPE_UNIT_UNSPECIFIED = 0;
 
-    // Boolean
-    BOOL = 1;
+  // Boolean
+  PRIMITIVE_TYPE_BOOL = 1;
 
-    // Index type (e.g. usize)
-    INDEX = 2;
+  // Index type (e.g. usize)
+  PRIMITIVE_TYPE_INDEX = 2;
 
-    // Integral types
-    I8 = 10;
-    U8 = 11;
-    I16 = 12;
-    U16 = 13;
-    I32 = 14;
-    U32 = 15;
-    I64 = 16;
-    U64 = 17;
+  // Integral types
+  PRIMITIVE_TYPE_I8 = 10;
+  PRIMITIVE_TYPE_U8 = 11;
+  PRIMITIVE_TYPE_I16 = 12;
+  PRIMITIVE_TYPE_U16 = 13;
+  PRIMITIVE_TYPE_I32 = 14;
+  PRIMITIVE_TYPE_U32 = 15;
+  PRIMITIVE_TYPE_I64 = 16;
+  PRIMITIVE_TYPE_U64 = 17;
 
-    // Floating point types
-    F32 = 30;
-    F64 = 31;
+  // Floating point types
+  PRIMITIVE_TYPE_F32 = 30;
+  PRIMITIVE_TYPE_F64 = 31;
 }
 
 message PrimitiveTupleType {
-    repeated SomePrimitive members = 1;
+  repeated SomePrimitive members = 1;
 }
 
 message SomePrimitive {
-    oneof member {
-        PrimitiveType prim = 1;
-        PrimitiveTupleType tuple = 2;
-    }
+  oneof member {
+    PrimitiveType prim = 1;
+    PrimitiveTupleType tuple = 2;
+  }
 }
 
 message BufferType {
-    message BufferShape {
-        uint64 rank = 1;
+  message BufferShape {
+    uint64 rank = 1;
 
-        // Contains possibly partial shape information for the buffer
-        map<uint64, uint64> shape = 2;
-    }
+    // Contains possibly partial shape information for the buffer
+    map<uint64, uint64> shape = 2;
+  }
 
-    SomePrimitive element_type = 1;
+  SomePrimitive element_type = 1;
 
-    BufferShape shape = 2;
+  BufferShape shape = 2;
 }
 
 message TupleType {
-    repeated Type members = 1;
+  repeated Type members = 1;
 }
 
 message Type {
-    oneof member {
-        SomePrimitive prim = 1;
-        BufferType buffer = 2;
-        TupleType tuple = 3;
-    }
+  oneof member {
+    SomePrimitive prim = 1;
+    BufferType buffer = 2;
+    TupleType tuple = 3;
+  }
 }
 
 message Constant {
-    Type type = 1;
-    oneof value {
-        int64 integer = 2;
-        double real = 3;
+  Type type = 1;
+  oneof value {
+    int64 integer = 2;
+    double real = 3;
 
-        // Used for storing tensors
-        string qualified_name = 4;
-    }
+    // Used for storing tensors
+    string qualified_name = 4;
+  }
 }
 
 // Scalar valued symbols, for use in primitive operation blocks such as Map
 message Symbol {
-    uint64 id = 1;
-    optional string name = 2;
-    optional Location loc = 3;
-    Type type = 4;
+  uint64 id = 1;
+  optional string name = 2;
+  optional Location loc = 3;
+  Type type = 4;
 
-    message Bind {}
-    oneof definition {
-        Bind bind = 5;
-        Constant const = 6;
-        Operation op = 7;
-    }
+  message Bind {
+  }
+  oneof definition {
+    Bind bind = 5;
+    Constant const = 6;
+    Operation op = 7;
+  }
 }
 
 // Operations on primitives
 enum WellKnownOperations {
-    NOP = 0;
+  WELL_KNOWN_OPERATIONS_NOP_UNSPECIFIED = 0;
 
-    // Basic ops
-    ADD = 1;
-    SUB = 2;
-    MUL = 3;
-    DIV = 4;
-    FMA = 5;
-    NEG = 6;
+  // Basic ops
+  WELL_KNOWN_OPERATIONS_ADD = 1;
+  WELL_KNOWN_OPERATIONS_SUB = 2;
+  WELL_KNOWN_OPERATIONS_MUL = 3;
+  WELL_KNOWN_OPERATIONS_DIV = 4;
+  WELL_KNOWN_OPERATIONS_FMA = 5;
+  WELL_KNOWN_OPERATIONS_NEG = 6;
 
-    SHL = 10;
-    SHR = 11;
-    SRA = 12;
+  WELL_KNOWN_OPERATIONS_SHL = 10;
+  WELL_KNOWN_OPERATIONS_SHR = 11;
+  WELL_KNOWN_OPERATIONS_SRA = 12;
 
-    // Bit ops
-    AND = 20;
-    OR = 21;
-    XOR = 22;
-    NOT = 23;
+  // Bit ops
+  WELL_KNOWN_OPERATIONS_AND = 20;
+  WELL_KNOWN_OPERATIONS_OR = 21;
+  WELL_KNOWN_OPERATIONS_XOR = 22;
+  WELL_KNOWN_OPERATIONS_NOT = 23;
 
-    // Buffer manipulation ops
-    LOADCOND = 30;
-    STORECOND = 31;
-    SHAPE = 32;
-    RANK = 33;
-    PERMUTE = 34;
+  // Buffer manipulation ops
+  WELL_KNOWN_OPERATIONS_LOADCOND = 30;
+  WELL_KNOWN_OPERATIONS_STORECOND = 31;
+  WELL_KNOWN_OPERATIONS_SHAPE = 32;
+  WELL_KNOWN_OPERATIONS_RANK = 33;
+  WELL_KNOWN_OPERATIONS_PERMUTE = 34;
 
-    // Comparison ops
-    MAX = 40;
-    MIN = 41;
+  // Comparison ops
+  WELL_KNOWN_OPERATIONS_MAX = 40;
+  WELL_KNOWN_OPERATIONS_MIN = 41;
 
-    LT = 42;
-    LTE = 43;
-    GT = 44;
-    GTE = 45;
-    EQ = 46;
-    NEQ = 47;
+  WELL_KNOWN_OPERATIONS_LT = 42;
+  WELL_KNOWN_OPERATIONS_LTE = 43;
+  WELL_KNOWN_OPERATIONS_GT = 44;
+  WELL_KNOWN_OPERATIONS_GTE = 45;
+  WELL_KNOWN_OPERATIONS_EQ = 46;
+  WELL_KNOWN_OPERATIONS_NEQ = 47;
 
-    // Assorted math ops
-    LOG = 60;
-    POW = 61;
-    SQRT = 62;
+  // Assorted math ops
+  WELL_KNOWN_OPERATIONS_LOG = 60;
+  WELL_KNOWN_OPERATIONS_POW = 61;
+  WELL_KNOWN_OPERATIONS_SQRT = 62;
     
-    // Trigonometric ops
-    SIN = 70;
-    COS = 71;
-    TAN = 72;
+  // Trigonometric ops
+  WELL_KNOWN_OPERATIONS_SIN = 70;
+  WELL_KNOWN_OPERATIONS_COS = 71;
+  WELL_KNOWN_OPERATIONS_TAN = 72;
 
-    // Hyperbolic Trig
-    SINH = 81;
-    COSH = 82;
-    TANH = 83;
+  // Hyperbolic Trig
+  WELL_KNOWN_OPERATIONS_SINH = 81;
+  WELL_KNOWN_OPERATIONS_COSH = 82;
+  WELL_KNOWN_OPERATIONS_TANH = 83;
 
-    // Tuple operations
-    PACK = 90;
-    UNPACK = 91;
+  // Tuple operations
+  WELL_KNOWN_OPERATIONS_PACK = 90;
+  WELL_KNOWN_OPERATIONS_UNPACK = 91;
 }
 
 message BlackBoxOp {
-    string operation = 1;
+  string operation = 1;
 }
 
 message Operation {
-    repeated uint64 inputs = 1;
-    oneof operation {
-        WellKnownOperations wellknown = 2;
-        BlackBoxOp blackbox = 3;
-    }
+  repeated uint64 inputs = 1;
+  oneof operation {
+    WellKnownOperations wellknown = 2;
+    BlackBoxOp blackbox = 3;
+  }
 }
