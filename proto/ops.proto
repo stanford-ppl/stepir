@@ -23,7 +23,7 @@ message TypeA {
     Input input = 1;
     Output output = 2;
     Broadcast broadcast = 3;
-    // RepeatStatic repeat_static = ;
+    RepeatStatic repeat_static = 4;
     // Bufferize bufferize = ;
     // Promote promote = ;
     // Reshape reshape = ;
@@ -75,6 +75,12 @@ message Broadcast {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
   repeated uint64 out_stream_idxes = 3;
+}
+
+message RepeatStatic {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  uint64 repeat = 3;
 }
 
 message Partition {
