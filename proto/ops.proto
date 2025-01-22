@@ -35,8 +35,8 @@ message TypeA {
 message TypeAB {
   oneof op_ab {
     Map map = 1;
+    Accum accum = 2;
     // Flatmap flatmap = ;
-    // Accum accum = ;
     // Scan scan = ;
     // FnBlock fn_block = ;
 
@@ -45,8 +45,7 @@ message TypeAB {
     // RepeatRef repeat_ref = ;
     // RepeatN repeat_n = ;
     Partition flat_partition = 15;
-    Reassemble flat_reassemble = 16;    
-
+    Reassemble flat_reassemble = 16;
   }
 }
 
@@ -64,6 +63,14 @@ message Map {
   ElemtoElemFunc func = 3;
 }
 
+message Accum {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  AccumFunc accum_func = 3;
+  InitFunc init_func = 4;
+  uint64 rank = 5;
+}
+
 message Broadcast {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
@@ -77,7 +84,7 @@ message Partition {
   optional uint64 stream_idx_control = 4;
   repeated uint64 out_stream_idxes = 5;
 }
-  
+
 message Reassemble {
   message Stream {
     uint64 node_id = 1;
