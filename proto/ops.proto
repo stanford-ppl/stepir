@@ -52,10 +52,10 @@ message TypeAB {
 message Output {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
+  uint64 dim = 3;
 }
 
-message Input {
-}
+message Input {}
 
 message Map {
   uint64 node_id = 1;
