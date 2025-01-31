@@ -3,17 +3,19 @@ syntax = "proto3";
 package stepir;
 
 message ElemtoElemFunc {
-  oneof func_type {
+  oneof elem_elem_fn {
     Exp exp = 1;
+    TupleDiv tuple_div = 2;
   }
 }
 
 message Exp {
 }
-
+message TupleDiv {
+}
 
 message ElemtoStreamFunc {
-  oneof func_type {
+  oneof elem_stream_fn {
     Range range = 1;
     Streamify streamify = 2;
   }
@@ -28,7 +30,7 @@ message Streamify {
 
 
 message ViewFunc {
-  oneof func_type {
+  oneof view_fn {
     Permute permute = 1;
   }
 }
@@ -36,3 +38,20 @@ message ViewFunc {
 message Permute {
 }
 
+message AccumFunc {
+  oneof accum_fn {
+    Add add = 1;
+  }
+}
+
+message Add {
+}
+
+message InitFunc {
+  oneof init_fn {
+    InitZero init_zero = 1;
+  }
+}
+
+message InitZero {
+}
