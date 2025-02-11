@@ -30,7 +30,6 @@ message TypeA {
     Flatten flatten = 8;
     Parallelize parallelize = 9;
     ScanInclusive scan_inclusive = 10;
-    Enumerate enumerate = 11;
   }
 }
 
@@ -45,6 +44,7 @@ message TypeAB {
     Zip zip = 10;
     Unzip unzip = 11;
     RepeatRef repeat_ref = 12;
+    Enumerate enumerate = 13;
     // RepeatN repeat_n = ;
     Partition flat_partition = 15;
     Reassemble flat_reassemble = 16;
