@@ -22,6 +22,8 @@ message Sim {
     // reserved 28 to 30;
 
     F32F32 f32_f32 = 31;
+    F32U32 f32_u32 = 32;
+    F32U32U32 f32_u32_u32 = 33;
   }
 }
 

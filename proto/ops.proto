@@ -69,8 +69,7 @@ message Accum {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
   AccumFunc accum_func = 3;
-  InitFunc init_func = 4;
-  uint64 rank = 5;
+  uint64 rank = 4;
 }
 
 message ScanInclusive {
