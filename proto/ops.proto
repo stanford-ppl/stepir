@@ -129,9 +129,8 @@ message Partition {
 message Parallelize {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
-  repeated uint64 out_stream_idxes = 3;
-  uint64 par_factor = 4;
-  uint64 parallelized_dim = 5;
+  uint64 par_factor = 3;
+  uint64 parallelized_dim = 4;
 }
 
 message Promote {
