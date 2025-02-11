@@ -4,15 +4,47 @@ package stepir;
 
 message ElemtoElemFunc {
   oneof elem_elem_fn {
-    Exp exp = 1;
-    TupleDiv tuple_div = 2;
+    Add add = 1;
+    Sub sub = 2;
+    Mul mul = 3;
+    Div div = 4;
+    TupleAdd tuple_add = 5;
+    TupleSub tuple_sub = 6;
+    TupleMul tuple_mul = 7;
+    TupleDiv tuple_div = 8;
+    // reserved 9 to 20;
+
+    Square square = 21;
+    Exp exp = 22;
+    Pow pow = 23;
+    Tanh tanh = 24;
+    // reserved 25 to 30;
+
+    CausalMask causal_mask = 31;
+    // reserved 32 to 50;
+
+    Permute permute = 51;
+    ExpandStatic expand_static = 52;
   }
 }
 
-message Exp {
-}
-message TupleDiv {
-}
+message Exp {}
+message Pow {}
+message Tanh {}
+
+message Div {}
+message Mul {}
+message Add {}
+message Sub {}
+
+message Square {}
+
+message TupleAdd {}
+message TupleDiv {}
+message TupleSub {}
+message TupleMul {}
+
+message CausalMask {}
 
 message ElemtoStreamFunc {
   oneof elem_stream_fn {
@@ -21,37 +53,33 @@ message ElemtoStreamFunc {
   }
 }
 
-message Range {
-  uint64 index = 1;
-}
+message Range { uint64 index = 1; }
 
-message Streamify {
-}
+message Streamify {}
 
+message Permute { repeated uint64 permute_order = 1; }
 
-message ViewFunc {
-  oneof view_fn {
-    Permute permute = 1;
-  }
-}
-
-message Permute {
+message ExpandStatic {
+  repeated uint64 expanded_ranks = 1;
+  repeated uint64 sizes = 2;
 }
 
 message AccumFunc {
   oneof accum_fn {
-    Add add = 1;
+    AccumAdd add = 1;
+    AccumScaleAdd scale_add = 2;
+    AccumMax max = 3;
+    AccumDummy dummy = 4;
   }
 }
 
-message Add {
-}
+message AccumAdd {}
+message AccumScaleAdd {}
+message AccumMax {}
+message AccumDummy {}
 
 message InitFunc {
-  oneof init_fn {
-    InitZero init_zero = 1;
-  }
+  oneof init_fn { InitZero init_zero = 1; }
 }
 
-message InitZero {
-}
+message InitZero {}

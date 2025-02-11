@@ -16,18 +16,17 @@ message Sim {
     MultiHot multihot = 21;
     Index index = 22;
     // reserved 23 to 25;
-    
+
     Tile tile = 26;
     View view = 27;
     // reserved 28 to 30;
-    
-    F32F32 f32_f32= 31;
+
+    F32F32 f32_f32 = 31;
   }
 }
 
-
 message View {
-  
+
   oneof dtype {
     I16 i16 = 1;
     I32 i32 = 2;
@@ -39,9 +38,9 @@ message View {
     // reserved 8 to 20;
 
     MultiHot multihot = 21;
-    Index index = 22; 
+    Index index = 22;
     // reserved 23 to 30;
-    
+
     F32F32 f32_f32 = 31;
   }
 }
@@ -58,40 +57,28 @@ message Tile {
     // reserved 8 to 20;
 
     MultiHot multihot = 21;
-    Index index = 22; 
+    Index index = 22;
     // reserved 23 to 30;
-    
+
     F32F32 f32_f32 = 31;
+    F32U32 f32_u32 = 32;
+    F32U32U32 f32_u32_u32 = 33;
   }
 }
 
-message I16 {
-}
-message I32 {
-}
+message I16 {}
+message I32 {}
 
-message U16 {
-}
-message U32 {
-}
+message U16 {}
+message U32 {}
 
-message F16 {
-}
-message F32 {
-}
-message F64 {
-}
+message F16 {}
+message F32 {}
+message F64 {}
 
-message F32F32 {
-}
+message F32F32 {}
+message F32U32 {}
+message F32U32U32 {}
 
-message MultiHot {
-  uint64 n = 1;
-}
-message Index {
-  uint64 n = 1;
-}
-
-
-
-
+message MultiHot { uint64 n = 1; }
+message Index { uint64 n = 1; }
