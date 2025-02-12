@@ -39,7 +39,7 @@ message View {
     F32 f32 = 6;
     F64 f64 = 7;
     // reserved 8 to 20;
-    
+
     MultiHot multihot = 21;
     Index index = 22;
     // reserved 23 to 30;

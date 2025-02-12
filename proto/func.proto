@@ -29,13 +29,48 @@ message ElemtoElemFunc {
 }
 
 message Exp {}
-message Pow {}
+message Pow {
+  oneof operand {
+    float f32 = 1;
+    double f64 = 2;
+    int32 i32 = 3;
+    int32 i64 = 4;
+  }
+}
 message Tanh {}
 
-message Div {}
-message Mul {}
-message Add {}
-message Sub {}
+message Div {
+  oneof operand {
+    float f32 = 1;
+    double f64 = 2;
+    int32 i32 = 3;
+    int32 i64 = 4;
+  }
+}
+message Mul {
+  oneof operand {
+    float f32 = 1;
+    double f64 = 2;
+    int32 i32 = 3;
+    int32 i64 = 4;
+  }
+}
+message Add {
+  oneof operand {
+    float f32 = 1;
+    double f64 = 2;
+    int32 i32 = 3;
+    int32 i64 = 4;
+  }
+}
+message Sub {
+  oneof operand {
+    float f32 = 1;
+    double f64 = 2;
+    int32 i32 = 3;
+    int32 i64 = 4;
+  }
+}
 
 message Square {}
 
@@ -57,7 +92,7 @@ message Range { uint64 index = 1; }
 
 message Streamify {}
 
-message Permute { repeated uint64 permute_order = 1; }
+message Permute { repeated uint64 permute_orders = 1; }
 
 message ExpandStatic {
   repeated uint64 expanded_ranks = 1;
