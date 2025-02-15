@@ -118,7 +118,7 @@ message RepeatRef {
   uint64 node_id_ref = 3;
   optional uint64 stream_idx_ref = 4;
 }
-message RepeatRef {
+message RepeatRefRank {
   uint64 node_id_data = 1;
   optional uint64 stream_idx_data = 2;
   uint64 node_id_ref = 3;
