@@ -93,15 +93,12 @@ message Range { uint64 index = 1; }
 
 message Streamify {}
 
-message Permute { repeated uint64 permute_orders = 1; }
+message Permute { repeated uint32 permute_orders = 1; }
 
-message ExpandStatic {
-  repeated uint64 expand_ranks = 1;
-  repeated uint64 expand_sizes = 2;
-}
+message ExpandStatic { map<uint32, uint32> expand_ranks = 1; }
 message RepeatStaticFn {
-  uint64 expand_rank = 1;
-  uint64 expand_size = 2;
+  uint32 expand_rank = 1;
+  uint32 expand_size = 2;
 }
 message AccumFunc {
   oneof accum_fn {
