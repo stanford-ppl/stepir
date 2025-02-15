@@ -95,8 +95,8 @@ message Streamify {}
 message Permute { repeated uint64 permute_orders = 1; }
 
 message ExpandStatic {
-  repeated uint64 expanded_ranks = 1;
-  repeated uint64 sizes = 2;
+  uint64 expand_rank = 1;
+  uint64 expand_size = 2;
 }
 
 message AccumFunc {
