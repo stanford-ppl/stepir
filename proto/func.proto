@@ -25,7 +25,7 @@ message ElemtoElemFunc {
 
     Permute permute = 51;
     ExpandStatic expand_static = 52;
-    RepeatStatic repeat_static = 53;
+    RepeatStaticFn repeat_static = 53;
   }
 }
 
@@ -99,7 +99,7 @@ message ExpandStatic {
   repeated uint64 expand_ranks = 1;
   repeated uint64 expand_sizes = 2;
 }
-message RepeatStatic {
+message RepeatStaticFn {
   uint64 expand_rank = 1;
   uint64 expand_size = 2;
 }
