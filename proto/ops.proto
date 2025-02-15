@@ -32,6 +32,7 @@ message TypeA {
     ScanInclusive scan_inclusive = 10;
     RepeatRef repeat_ref = 11;
     Enumerate enumerate = 12;
+    RepeatRefRank repeat_ref_rank = 13;
   }
 }
 
@@ -116,6 +117,13 @@ message RepeatRef {
   optional uint64 stream_idx_data = 2;
   uint64 node_id_ref = 3;
   optional uint64 stream_idx_ref = 4;
+}
+message RepeatRef {
+  uint64 node_id_data = 1;
+  optional uint64 stream_idx_data = 2;
+  uint64 node_id_ref = 3;
+  optional uint64 stream_idx_ref = 4;
+  uint64 rank = 5;
 }
 
 message Partition {
