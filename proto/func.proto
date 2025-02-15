@@ -25,6 +25,7 @@ message ElemtoElemFunc {
 
     Permute permute = 51;
     ExpandStatic expand_static = 52;
+    RepeatStatic repeat_static = 53;
   }
 }
 
@@ -95,10 +96,13 @@ message Streamify {}
 message Permute { repeated uint64 permute_orders = 1; }
 
 message ExpandStatic {
+  repeated uint64 expand_ranks = 1;
+  repeated uint64 expand_sizes = 2;
+}
+message RepeatStatic {
   uint64 expand_rank = 1;
   uint64 expand_size = 2;
 }
-
 message AccumFunc {
   oneof accum_fn {
     AccumAdd add = 1;
