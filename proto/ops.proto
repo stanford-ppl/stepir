@@ -24,11 +24,15 @@ message TypeA {
     Output output = 2;
     Broadcast broadcast = 3;
     RepeatStatic repeat_static = 4;
-    // Bufferize bufferize = ;
-    // Promote promote = ;
-    // Reshape reshape = ;
-    // Flatten flatten = ;
-    // Enumerate enumerate = ;
+    Bufferize bufferize = 5;
+    Promote promote = 6;
+    Reshape reshape = 7;
+    Flatten flatten = 8;
+    Parallelize parallelize = 9;
+    ScanInclusive scan_inclusive = 10;
+    RepeatRef repeat_ref = 11;
+    Enumerate enumerate = 12;
+    RepeatRefRank repeat_ref_rank = 13;
   }
 }
 
@@ -37,12 +41,11 @@ message TypeAB {
     Map map = 1;
     Accum accum = 2;
     // Flatmap flatmap = ;
-    // Scan scan = ;
-    // FnBlock fn_block = ;
+    ScanExclusive scan_exclusive = 4;
+    FnBlock fn_block = 5;
 
     Zip zip = 10;
     Unzip unzip = 11;
-    // RepeatRef repeat_ref = ;
     // RepeatN repeat_n = ;
     Partition flat_partition = 15;
     Reassemble flat_reassemble = 16;
@@ -55,7 +58,7 @@ message Output {
   uint64 dim = 3;
 }
 
-message Input {}
+message Input { string aten_name = 1; }
 
 message Map {
   uint64 node_id = 1;
@@ -67,8 +70,28 @@ message Accum {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
   AccumFunc accum_func = 3;
-  InitFunc init_func = 4;
-  uint64 rank = 5;
+  uint64 rank = 4;
+}
+
+message ScanInclusive {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  AccumFunc fold_func = 3;
+  uint64 rank = 4;
+}
+
+message ScanExclusive {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  AccumFunc fold_func = 3;
+  uint64 rank = 4;
+}
+
+message FnBlock {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  ElemtoStreamFunc func = 3;
+  uint64 rank = 4;
 }
 
 message Broadcast {
@@ -77,10 +100,30 @@ message Broadcast {
   repeated uint64 out_stream_idxes = 3;
 }
 
+message Bufferize {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  uint64 rank = 3;
+}
+
 message RepeatStatic {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
   uint64 repeat = 3;
+}
+
+message RepeatRef {
+  uint64 node_id_data = 1;
+  optional uint64 stream_idx_data = 2;
+  uint64 node_id_ref = 3;
+  optional uint64 stream_idx_ref = 4;
+}
+message RepeatRefRank {
+  uint64 node_id_data = 1;
+  optional uint64 stream_idx_data = 2;
+  uint64 node_id_ref = 3;
+  optional uint64 stream_idx_ref = 4;
+  uint64 rank = 5;
 }
 
 message Partition {
@@ -89,6 +132,39 @@ message Partition {
   uint64 node_id_control = 3;
   optional uint64 stream_idx_control = 4;
   repeated uint64 out_stream_idxes = 5;
+}
+
+message Parallelize {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  uint64 par_factor = 3;
+  uint64 parallelized_dim = 4;
+}
+
+message Promote {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  uint64 rank = 3;
+}
+
+message Flatten {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  repeated uint64 flattened_ranks = 3;
+}
+
+message Reshape {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  repeated uint64 split_dims = 3;
+  repeated uint64 chunk_sizes = 4;
+  optional uint64 pad_val = 5;
+}
+
+message Enumerate {
+  uint64 node_id = 1;
+  optional uint64 stream_idx = 2;
+  uint64 rank = 3;
 }
 
 message Reassemble {
