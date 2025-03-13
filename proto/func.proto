@@ -86,12 +86,15 @@ message ElemtoStreamFunc {
   oneof elem_stream_fn {
     Range range = 1;
     Streamify streamify = 2;
+    Concat concat = 3;
   }
 }
 
 message Range { uint64 index = 1; }
 
 message Streamify {}
+
+message Concat { uint64 index = 1; }
 
 message Permute { repeated uint64 permute_orders = 1; }
 
