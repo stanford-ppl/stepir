@@ -26,6 +26,9 @@ message ElemtoElemFunc {
     Permute permute = 51;
     ExpandStatic expand_static = 52;
     RepeatStaticFn repeat_static = 53;
+    // reserved 54 to 70;
+
+    Concat concat = 71;
   }
 }
 
@@ -92,6 +95,8 @@ message ElemtoStreamFunc {
 message Range { uint64 index = 1; }
 
 message Streamify {}
+
+message Concat { uint64 axis = 1; }
 
 message Permute { repeated uint64 permute_orders = 1; }
 

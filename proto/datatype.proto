@@ -20,7 +20,9 @@ message Sim {
 
     Tile tile = 26;
     View view = 27;
-    // reserved 28 to 30;
+    // reserved 28 to 29;
+
+    ViewView view_view = 30;
 
     F32F32 f32_f32 = 31;
     F32U32 f32_u32 = 32;
@@ -87,3 +89,8 @@ message MultiHot { uint64 n = 1; }
 message Index { uint64 n = 1; }
 
 message Dummy {}
+
+message ViewView {
+  View lhs = 1;
+  View rhs = 2;
+}
