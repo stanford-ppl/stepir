@@ -33,6 +33,7 @@ message TypeA {
     RepeatRef repeat_ref = 11;
     Enumerate enumerate = 12;
     RepeatRefRank repeat_ref_rank = 13;
+    InitForLoop init_for_loop = 14;
   }
 }
 
@@ -188,4 +189,13 @@ message Unzip {
   uint64 node_id = 1;
   optional uint64 stream_idx = 2;
   repeated uint64 idxes = 3;
+}
+
+message InitForLoop {
+  uint64 node_id_init = 1;
+  optional uint64 stream_idx_init = 2;
+  uint64 node_id_cyclic = 3;
+  optional uint64 stream_idx_cyclic = 4;
+  uint64 input_rank = 5;
+  uint64 repeat = 6;
 }
